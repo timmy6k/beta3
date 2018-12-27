@@ -28,6 +28,6 @@ Route::get('/material/create', 'MaterialController@create')->middleware('materia
 
 
 Route::resource('/admin/user', 'UserController')->middleware('admin');
-Route::resource('/superadmin/user', 'UserController', ['as'=>'superadmin'])->middleware('superadmin');
+Route::resource('/superadmin/user', 'SAUserController', ['as'=>'superadmin'])->middleware('superadmin');
 
 

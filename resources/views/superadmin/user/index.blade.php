@@ -3,9 +3,9 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Users</div>
+                    <div class="card-header">SA Users</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -14,7 +14,7 @@
                             </div>
                         @endif
 
-                        @if($user)
+
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -35,7 +35,7 @@
 
                                     <tr>
                                         <th scope="row">{{$users->id}}</th>
-                                        <td>{{$users->name}}</td>
+                                        <td><a href="{{route('superadmin.user.edit', $users->id)}}">{{$users->name}}</a></td>
                                         <td>{{$users->email}}</td>
                                         <td>{{$users->is_active}}</td>
                                         <td>{{$users->user_role == 2 ? 'Dev' : $users->userrole->name}}</td>
@@ -47,7 +47,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                        @endif
+
 
 
                     </div>

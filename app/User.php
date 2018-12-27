@@ -17,7 +17,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password','is_active', 'user_role',
-        'material_role', 'inventory_role', 'mpr_role', 'bpr_role'
+        'material_role', 'inventory_role', 'mpr_role', 'bpr_role', 'created_by', 'updated_by'
     ];
 
     /**
@@ -47,6 +47,10 @@ class User extends Authenticatable
 
     public function userrole(){
         return $this->belongsTo('App\Role', 'user_role', 'id');
+    }
+
+    public function createdby(){
+        return $this->belongsTo('App\User', 'created_by', 'id');
     }
 
 

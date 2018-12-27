@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Users</div>
 
@@ -14,7 +14,7 @@
                             </div>
                         @endif
 
-                        @if($user)
+
                             <table class="table">
                               <thead>
                                 <tr>
@@ -27,6 +27,8 @@
                                   <th scope="col">Inventory Role</th>
                                   <th scope="col">MPR Role</th>
                                   <th scope="col">BPR Role</th>
+                                  <th scope="col">Created By</th>
+                                  <th scope="col">Created At</th>
 
                                 </tr>
                               </thead>
@@ -35,7 +37,7 @@
 
                                 <tr>
                                   <th scope="row">{{$users->id}}</th>
-                                  <td>{{$users->name}}</td>
+                                  <td><a href="{{route('user.edit', $users->id)}}">{{$users->name}}</a></td>
                                   <td>{{$users->email}}</td>
                                   <td>{{$users->is_active}}</td>
                                   <td>{{$users->user_role == 2 ? 'Dev' : $users->userrole->name}}</td>
@@ -43,11 +45,13 @@
                                   <td>{{$users->inventoryrole->name}}</td>
                                   <td>{{$users->mprrole->name}}</td>
                                   <td>{{$users->bprrole->name}}</td>
+                                  <td>{{$users->createdby->name}}</td>
+                                  <td>{{$users->created_at->diffForHumans()}}</td>
                                 </tr>
                                  @endforeach
                               </tbody>
                             </table>
-                        @endif
+
 
 
                     </div>
