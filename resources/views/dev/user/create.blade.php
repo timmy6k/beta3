@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">SA Edit User</div>
+                    <div class="card-header">Dev Create User</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -14,7 +14,7 @@
                             </div>
                         @endif
 
-                        {!! Form::model($user,['method'=>'PATCH', 'action'=>['SAUserController@update', $user->id]]) !!}
+                        {!! Form::open(['method'=>'POST', 'action'=>'DevUserController@store']) !!}
                         {{csrf_field()}}
                         <div class="form-group">
                             {!! Form::label('name', 'Name:') !!}
@@ -62,7 +62,7 @@
                         </div>
 
                         <div class="form-group">
-                            {!! Form::submit('Update User', ['class'=>'btn btm-primary']) !!}
+                            {!! Form::submit('Create User', ['class'=>'btn btm-primary']) !!}
                         </div>
                         {!! Form::close() !!}
 

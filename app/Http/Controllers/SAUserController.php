@@ -28,7 +28,7 @@ class SAUserController extends Controller
      */
     public function create()
     {
-        $user_role = Role::find([4, 5])->pluck('name', 'id')->all();
+        $user_role = Role::where('name', 'user')->orWhere('name', 'admin')->pluck('name', 'id')->all();
         $table_role = Tablerole::pluck('name', 'id')->all();
         return view('superadmin.user.create', compact('user_role', 'table_role'));
     }
@@ -76,7 +76,7 @@ class SAUserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $user_role = Role::find([4, 5])->pluck('name', 'id')->all();
+        $user_role = Role::where('name', 'user')->orWhere('name', 'admin')->pluck('name', 'id')->all();
         $table_role = Tablerole::pluck('name', 'id')->all();
         return view('superadmin.user.edit', compact('user','user_role', 'table_role'));
     }

@@ -33,6 +33,8 @@ class User extends Authenticatable
         return $this->belongsTo('App\Tablerole', 'material_role', 'id');
     }
 
+
+
     public function inventoryrole(){
         return $this->belongsTo('App\Tablerole', 'inventory_role', 'id');
     }
@@ -56,7 +58,7 @@ class User extends Authenticatable
 
     public function isAdmin(){
 
-        if($this->userrole->name == "admin" or $this->userrole->name == "dev" or $this->user_role == 2 && $this->is_active==1){
+        if($this->userrole->name == "admin" or $this->userrole->name == "dev" or $this->userrole->name == "waffle" && $this->is_active==1){
 
 
             return true;
@@ -67,7 +69,7 @@ class User extends Authenticatable
 
     public function isSuperAdmin(){
 
-        if($this->userrole->name == "super admin" or $this->userrole->name == "dev" or $this->user_role == 2 && $this->is_active==1){
+        if($this->userrole->name == "super admin" or $this->userrole->name == "dev" or $this->userrole->name == "waffle" && $this->is_active==1){
 
 
             return true;
@@ -86,6 +88,18 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function isDev(){
+
+        if($this->userrole->name == "dev" or $this->userrole->name == "waffle" && $this->is_active==1){
+
+
+            return true;
+
+        }
+        return false;
+    }
+
 
 
 

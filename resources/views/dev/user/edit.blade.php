@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">SA Edit User</div>
+                    <div class="card-header">Dev Edit User</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -14,7 +14,7 @@
                             </div>
                         @endif
 
-                        {!! Form::model($user,['method'=>'PATCH', 'action'=>['SAUserController@update', $user->id]]) !!}
+                        {!! Form::model($user,['method'=>'PATCH', 'action'=>['DevUserController@update', $user->id]]) !!}
                         {{csrf_field()}}
                         <div class="form-group">
                             {!! Form::label('name', 'Name:') !!}

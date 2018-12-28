@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class MaterialType extends Controller
+class DevRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,8 @@ class MaterialType extends Controller
      */
     public function index()
     {
-        //
+        $role = Role::all();
+        return view('dev.role.index', compact('role'));
     }
 
     /**
@@ -23,7 +26,7 @@ class MaterialType extends Controller
      */
     public function create()
     {
-        //
+        return view('dev.role.create');
     }
 
     /**
@@ -34,7 +37,10 @@ class MaterialType extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $input['created_by'] = Auth::user()->id;
+        Role::create($input);
+        return redirect('/dev/role');
     }
 
     /**
@@ -56,7 +62,9 @@ class MaterialType extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::findOrFail($id);
+
+        return view('dev.role.edit', compact('role'));
     }
 
     /**
@@ -68,7 +76,12 @@ class MaterialType extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $input['updated_by'] = Auth::user()->id;
+
+        Role::whereId($id)->first()->update($input);
+
+        return redirect('/dev/role');
     }
 
     /**

@@ -1,13 +1,16 @@
 @auth
     <ul class="navbar-nav">
 
-        @if(Auth::user()->userrole->id == 2)
+        @if(Auth::user()->userrole->name == 'waffle' or Auth::user()->userrole->name == 'dev')
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Dev</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="">For Testing/</a>
-                    <a class="dropdown-item" href="">Development Purposes</a>
-                    <a class="dropdown-item" href="{{route('roles')}}">Roles</a>
+                    <a class="dropdown-item" href="{{route('dev.user.index')}}">All Users</a>
+                    <a class="dropdown-item" href="{{route('dev.user.create')}}">Add User</a>
+                    <a class="dropdown-item" href="{{route('roles')}}">View My Roles</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('role.index')}}">View All Roles</a>
+                    <a class="dropdown-item" href="{{route('role.create')}}">Add Role</a>
 
                 </div>
             </li>
@@ -46,6 +49,11 @@
                 @endif
                 @if(Auth::user()->materialrole->name == 'approver' or Auth::user()->materialrole->name == 'full')
                     <a class="dropdown-item" href="{{route('material.approve')}}">Approvals</a>
+                @endif
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{route('materialtype.index')}}">View Material Types</a>
+                @if(Auth::user()->materialrole->name == 'author' or Auth::user()->materialrole->name == 'full')
+                    <a class="dropdown-item" href="{{route('materialtype.create')}}">Add Material Type</a>
                 @endif
             </div>
         </li>

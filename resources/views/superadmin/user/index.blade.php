@@ -27,6 +27,8 @@
                                     <th scope="col">Inventory Role</th>
                                     <th scope="col">MPR Role</th>
                                     <th scope="col">BPR Role</th>
+                                    <th scope="col">Created By</th>
+                                    <th scope="col">Created At</th>
 
                                 </tr>
                                 </thead>
@@ -43,6 +45,8 @@
                                         <td>{{$users->inventoryrole->name}}</td>
                                         <td>{{$users->mprrole->name}}</td>
                                         <td>{{$users->bprrole->name}}</td>
+                                        <td>{{$users->createdby->name}}</td>
+                                        <td>{{$users->created_at->diffForHumans()}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

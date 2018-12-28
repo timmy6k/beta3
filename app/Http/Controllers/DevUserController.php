@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Tablerole;
 use App\User;
 use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class DevUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $user = User::all();
-
-//        return dd($user);
-        return view('admin.user.index', compact('user'));
+        return view('dev.user.index', compact('user'));
     }
 
     /**
@@ -31,9 +28,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user_role = Role::where('name', 'user')->pluck('name', 'id')->all();
+        $user_role = Role::where('name', 'user')->orWhere('name', 'admin')->orWhere('name', 'dev')->orWhere('name', 'super admin')->pluck('name', 'id')->all();
         $table_role = Tablerole::pluck('name', 'id')->all();
-        return view('admin.user.create', compact( 'user_role', 'table_role'));
+        return view('dev.user.create', compact('user_role', 'table_role'));
     }
 
     /**
@@ -56,7 +53,7 @@ class UserController extends Controller
 
         User::create($input);
 
-        return redirect('/admin/user');
+        return redirect('dev/user');
     }
 
     /**
@@ -79,12 +76,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $user_role = Role::where('name', 'user')->pluck('name', 'id')->all();
+        $user_role = Role::where('name', 'user')->orWhere('name', 'admin')->orWhere('name', 'dev')->orWhere('name', 'super admin')->pluck('name', 'id')->all();
         $table_role = Tablerole::pluck('name', 'id')->all();
-
-        return view('admin.user.edit', compact('user', 'user_role', 'table_role'));
-
-
+        return view('dev.user.edit', compact('user','user_role', 'table_role'));
     }
 
     /**
@@ -108,7 +102,7 @@ class UserController extends Controller
 
         User::whereId($id)->first()->update($input);
 
-        return redirect('/admin/user');
+        return redirect('dev/user');
     }
 
     /**
