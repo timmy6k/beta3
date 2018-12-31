@@ -15,8 +15,8 @@
                         @endif
 
 
-                            <table class="table">
-                                <thead>
+                            <table class="table table-stripped table-hover">
+                                <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>

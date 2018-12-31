@@ -17,11 +17,13 @@ class CreateMaterialsTable extends Migration
             $table->increments('id');
             $table->integer('created_by')->unsigned();
             $table->integer('approved_by')->nullable()->unsigned();
+            $table->integer('rejected_by')->nullable()->unsigned();
             $table->integer('updated_by')->nullable()->unsigned();
             $table->integer('material_type_id')->unsigned();
             $table->string('name');
             $table->text('description');
-            $table->integer('status');
+            $table->integer('status')->default(0);
+            $table->integer('authorized')->nullable();
             $table->timestamps();
         });
     }

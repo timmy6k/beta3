@@ -5,18 +5,16 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">View Material Types</div>
+                    <div class="card-header">Update Material Status</div>
 
                     <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
-
-
-
-
                         @endif
+
+                        @if($material)
                             <table class="table table-striped">
                                 <thead class="thead-dark">
                                 <tr>
@@ -27,19 +25,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-							@foreach($type as $types)
-                                <tr>
-                                    <td>{{$types->id}}</td>
-                                    <td>{{$types->name}}</td>
-                                    <td>{{$types->createdby->name}}</td>
-                                    <td>{{$types->created_at->diffForHumans()}}</td>
-                                </tr>
-                            @endforeach
+                                @foreach($material as $materials)
+                                    <tr>
+                                        <td>{{$materials->id}}</td>
+                                        <td><a href="{{route('approve.edit', $materials->id)}}">{{$materials->name}}</a></td>
+                                        <td>{{$materials->createdby->name}}</td>
+                                        <td>{{$materials->created_at->diffForHumans()}}</td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
-
-
-
+                        @endif
 
                     </div>
                 </div>
@@ -47,6 +43,7 @@
         </div>
     </div>
 @endsection
+
 
 
 

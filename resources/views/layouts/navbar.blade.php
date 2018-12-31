@@ -43,12 +43,15 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Materials</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{{route('material.index')}}">View All</a>
+                    <a class="dropdown-item" href="{{route('material.index')}}">View Approved Materials</a>
+                @if(Auth::user()->materialrole->name == 'author' or Auth::user()->materialrole->name == 'full')
+                    <a class="dropdown-item" href="">View Rejected Materials</a>
+                @endif
                 @if(Auth::user()->materialrole->name == 'author' or Auth::user()->materialrole->name == 'full')
                     <a class="dropdown-item" href="{{route('material.create')}}">Add Material</a>
                 @endif
                 @if(Auth::user()->materialrole->name == 'approver' or Auth::user()->materialrole->name == 'full')
-                    <a class="dropdown-item" href="{{route('material.approve')}}">Approvals</a>
+                    <a class="dropdown-item" href="{{route('approve.index')}}">Approvals</a>
                 @endif
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{route('materialtype.index')}}">View Material Types</a>

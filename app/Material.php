@@ -13,6 +13,27 @@ class Material extends Model
         'created_by',
         'approved_by',
         'updated_by',
-        'status'
+        'status',
+        'rejected_by',
+        'authorized'
     ];
+
+    public function createdby(){
+        return $this->belongsTo('App\User', 'created_by', 'id');
+    }
+
+    public function updatedby(){
+        return $this->belongsTo('App\User', 'updated_by', 'id');
+    }
+
+    public function approvedby(){
+        return $this->belongsTo('App\User', 'approved_by', 'id');
+    }
+
+
+
+
+
+
+
 }

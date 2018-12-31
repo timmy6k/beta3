@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\NameRequest;
+use App\Http\Requests\MaterialStatusUpdateRequest;
+use App\Material;
 use App\MaterialType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MaterialTypeController extends Controller
+class ApproveMaterialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,8 @@ class MaterialTypeController extends Controller
      */
     public function index()
     {
-        $type = MaterialType::all();
-        return view('material.type.index', compact('type'));
+        $material = Material::whereStatus(0)->get();
+        return view('material.approve.index', compact('material'));
     }
 
     /**
@@ -27,7 +28,7 @@ class MaterialTypeController extends Controller
      */
     public function create()
     {
-        return view('material.type.create');
+        //
     }
 
     /**
@@ -36,14 +37,9 @@ class MaterialTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(NameRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
-        $input['created_by'] = Auth::user()->id;
-        MaterialType::create($input);
-
-       return redirect('/materialtype/');
-
+        //
     }
 
     /**
@@ -54,7 +50,7 @@ class MaterialTypeController extends Controller
      */
     public function show($id)
     {
-
+        //
     }
 
     /**
@@ -65,9 +61,10 @@ class MaterialTypeController extends Controller
      */
     public function edit($id)
     {
-        $type = MaterialType::findOrFail($id);
+        $material = Material::findOrFail($id);
+        $type = MaterialType::pluck('name', 'id')->all();
 
-        return view('material.type.edit', compact('type'));
+        return view('material.approve.edit', compact('material', 'type'));
     }
 
     /**
@@ -77,13 +74,25 @@ class MaterialTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(NameRequest $request, $id)
+    public function update(MaterialStatusUpdateRequest $request, $id)
     {
-        $input = $request->all();
-        $input['updated_by'] = Auth::user()->id;
-        MaterialType::whereId($id)->first()->update($input);
+        //0 = awaiting status change
+        //1 = Rejected
+        //2 = Approved
 
-        return redirect('/materialtype/');
+        $input = $request->all();
+        if($input['status'] == 2){
+            $input['approved_by'] = Auth::user()->id;
+        }elseif($input['status'] == 1){
+            $input['rejected_by'] = Auth::user()->id;
+        }
+
+
+        Material::whereId($id)->first()->update($input);
+
+        return redirect('/material/status/approve');
+
+
     }
 
     /**

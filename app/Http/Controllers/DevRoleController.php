@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NameRequest;
 use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,8 +36,9 @@ class DevRoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NameRequest $request)
     {
+//        return $request->all();
         $input = $request->all();
         $input['created_by'] = Auth::user()->id;
         Role::create($input);
@@ -74,7 +76,7 @@ class DevRoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(NameRequest $request, $id)
     {
         $input = $request->all();
         $input['updated_by'] = Auth::user()->id;

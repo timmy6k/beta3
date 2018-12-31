@@ -14,8 +14,34 @@
                             </div>
                         @endif
 
-                        You are logged in!
+                        {!! Form::open(['method'=>'POST', 'action'=>'MaterialController@store']) !!}
 
+                        {{csrf_field()}}
+
+                        <div class="form-group">
+                            {!! Form::label('name', 'Name:') !!}
+                            {!! Form::text('name', null, ['class'=>'form-control']) !!}
+                        </div>
+
+                        <div class="form-group">
+                            {!! Form::label('material_type_id', 'Type:') !!}
+                            {!! Form::select('material_type_id',[''=>'Select a type'] + $type, null, ['class'=>'form-control']) !!}
+                        </div>
+
+                        <div class="form-group">
+                            {!! Form::label('description', 'Description:') !!}
+                            {!! Form::textarea('description', null, ['class'=>'form-control']) !!}
+                        </div>
+
+                        <div class="form-group">
+                            {!! Form::submit('Create Material', ['class'=>'btn btn-primary']) !!}
+                        </div>
+
+                        {!! Form::close() !!}
+
+                        <div class="row">
+                            @include('includes.form_error')
+                        </div>
 
                     </div>
                 </div>

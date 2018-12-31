@@ -5,11 +5,37 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Materials</div>
+                    <div class="card-header">View Materials</div>
 
                     <div class="card-body">
-                        Welcome!
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
 
+							@if($material)
+                                <table class="table table-striped">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Created By</th>
+                                        <th>Approved By</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                @foreach($material as $materials)
+                                    <tr>
+                                        <td>{{$materials->id}}</td>
+                                        <td><a href="{{route('material.edit', $materials->id)}}">{{$materials->name}}</a></td>
+                                        <td>{{$materials->createdby->name}}</td>
+                                        <td>{{$materials->approvedby->name}}</td>
+                                    </tr>
+                                @endforeach
+                        </tbody>
+                                    </table>
+                                    @endif
 
                     </div>
                 </div>
@@ -17,3 +43,10 @@
         </div>
     </div>
 @endsection
+
+
+
+
+
+
+

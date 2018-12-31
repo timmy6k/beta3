@@ -38,7 +38,7 @@
 
                             <div class="form-group">
                                 {!! Form::label('user_role', 'User Role:') !!}
-                                {!! Form::select('user_role',  $user_role, null, ['class'=>'form-control']) !!}
+                                {!! Form::select('user_role', [''=>'Select Role'] + $user_role, null, ['class'=>'form-control']) !!}
                             </div>
 
                             <div class="form-group">
@@ -65,6 +65,11 @@
                                  {!! Form::submit('Create User', ['class'=>'btn btm-primary']) !!}
                              </div>
                               {!! Form::close() !!}
+
+                            <div class="row">
+                                @include('includes.form_error')
+                            </div>
+
 
 
 

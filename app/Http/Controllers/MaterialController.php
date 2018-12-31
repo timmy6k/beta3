@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MaterialRequest;
 use App\Material;
+use App\MaterialType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,9 +18,11 @@ class MaterialController extends Controller
     public function index()
     {
 
-//        return dd($role);
+        $material = Material::whereStatus(2)->get();
 
-        return view('material.index');
+
+
+        return view('material.index', compact('material'));
     }
 
     /**
@@ -28,7 +32,8 @@ class MaterialController extends Controller
      */
     public function create()
     {
-        return view('material.create');
+        $type = MaterialType::pluck('name', 'id')->all();
+        return view('material.create', compact('type'));
     }
 
     /**
@@ -37,9 +42,17 @@ class MaterialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MaterialRequest $request)
     {
-        //
+//        return $request->all();
+
+        $input = $request->all();
+        $input['created_by'] = Auth::user()->id;
+
+        Material::create($input);
+
+        return redirect('/material');
+
     }
 
     /**
@@ -61,7 +74,13 @@ class MaterialController extends Controller
      */
     public function edit($id)
     {
-        //
+        $material = Material::findOrFail($id);
+        $type = MaterialType::pluck('name', 'id')->all();
+
+        return view('material.edit', compact('material', 'type'));
+
+
+
     }
 
     /**
@@ -73,7 +92,7 @@ class MaterialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return 'test';
     }
 
     /**
@@ -88,17 +107,25 @@ class MaterialController extends Controller
     }
 
 
-    public function approve()
-    {
-
-//        $material = Material::all();
-
-        return view('material/approve');
-    }
-
-
-
-
+//    public function approve()
+//    {
+//
+//        $material = Material::whereStatus(0)->get();
+//
+////        return dd($material);
+//        return view('material/approve', compact('material'));
+//    }
+//
+//    public function viewStatus($id)
+//    {
+//
+//    }
+//
+//    public function updateStatus(Request $request, $id)
+//    {
+//        return 'test2';
+////        return $request->all();
+//    }
 
 
 
