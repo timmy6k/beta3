@@ -15,14 +15,18 @@ class CreateInventoriesTable extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id')->unsigned();
-            $table->integer('approver_id')->nullable()->unsigned();
-            $table->integer('material_id');
-            $table->integer('status_id');
-            $table->date('expiration_date');
+            $table->unsignedInteger('material_id');
+//            $table->unsignedInteger('user_id');
             $table->integer('quantity');
-            $table->integer('uom_id')->unsigned();
             $table->timestamps();
+
+
+//            $table->integer('user_id')->unsigned();
+//            $table->integer('approver_id')->nullable()->unsigned();
+//            $table->integer('status_id');
+//            $table->date('expiration_date');
+//            $table->integer('uom_id')->unsigned();
+
         });
     }
 

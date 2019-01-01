@@ -15,16 +15,26 @@ class CreateMaterialsTable extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('created_by')->unsigned();
-            $table->integer('approved_by')->nullable()->unsigned();
-            $table->integer('rejected_by')->nullable()->unsigned();
-            $table->integer('updated_by')->nullable()->unsigned();
-            $table->integer('material_type_id')->unsigned();
+            $table->unsignedInteger('user_id');
             $table->string('name');
             $table->text('description');
-            $table->integer('status')->default(0);
-            $table->integer('authorized')->nullable();
             $table->timestamps();
+
+
+
+//            $table->integer('created_by')->unsigned();
+//            $table->unsignedInteger('user_id');
+//            $table->integer('approved_by')->nullable()->unsigned();
+//            $table->integer('rejected_by')->nullable()->unsigned();
+//            $table->integer('updated_by')->nullable()->unsigned();
+//            $table->unsignedInteger('material_type_id')->unsigned();
+//            $table->integer('status')->default(0);
+//            $table->integer('authorized')->nullable();
+
+
+//            $table->foreign('material_type_id')->references('id')->on('material_types');
+
+
         });
     }
 
